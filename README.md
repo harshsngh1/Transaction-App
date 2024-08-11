@@ -38,6 +38,18 @@ https://github.com/harshsngh1/Transaction-App
 ```
 go run main.go
 ```
+## Running app via Docker
+To run the application using Docker, execute the following commands:
+1. Build the Docker image:
+```
+docker build -t transaction-app .
+```
+
+2. Run the Docker container:
+```
+docker run -p 8080:8080 rate-limiting-app
+```
+The application will start inside a Docker container and be accessible at http://localhost:8080.
 
 ## Testing cURL commands
 ### Testing PUT endpoint /transactionservice/transaction/:transaction_id 
