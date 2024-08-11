@@ -38,7 +38,39 @@ func TestSumTransaction(t *testing.T) {
 	c.SetParamValues("10")
 	if assert.NoError(t, handlers.GetSum(c)) {
 		assert.Equal(t, http.StatusOK, res.Code)
-		expected := `{"sum":0}`
+		expected := `{"sum":5000}`
+		assert.JSONEq(t, expected, res.Body.String())
+	}
+}
+
+func TestGetTransaction(t *testing.T) {
+	e := echo.New()
+	req := httptest.NewRequest(http.MethodGet, "/transactionservice/transaction/10", nil)
+	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+	res := httptest.NewRecorder()
+	c := e.NewContext(req, res)
+	c.SetPath("/transactionservice/transaction/:transaction_id")
+	c.SetParamNames("transaction_id")
+	c.SetParamValues("10")
+	if assert.NoError(t, handlers.GetTransaction(c)) {
+		assert.Equal(t, http.StatusOK, res.Code)
+		expected := `{"amount":5000,"type":"cars"}`
+		assert.JSONEq(t, expected, res.Body.String())
+	}
+}
+
+func TestGetTransactionByTest(t *testing.T) {
+	e := echo.New()
+	req := httptest.NewRequest(http.MethodGet, "/transactionservice/types/cars", nil)
+	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+	res := httptest.NewRecorder()
+	c := e.NewContext(req, res)
+	c.SetPath("/transactionservice/types/:type")
+	c.SetParamNames("type")
+	c.SetParamValues("cars")
+	if assert.NoError(t, handlers.GetTransactionByType(c)) {
+		assert.Equal(t, http.StatusOK, res.Code)
+		expected := `[10]`
 		assert.JSONEq(t, expected, res.Body.String())
 	}
 }
