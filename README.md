@@ -47,7 +47,7 @@ docker build -t transaction-app .
 
 2. Run the Docker container:
 ```
-docker run -p 8080:8080 rate-limiting-app
+docker run -p 8080:8080 transaction-app
 ```
 The application will start inside a Docker container and be accessible at http://localhost:8080.
 
