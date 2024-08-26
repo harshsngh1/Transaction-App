@@ -42,5 +42,10 @@ func GetSum(c echo.Context) error {
 		}
 	}
 	return c.JSON(http.StatusOK, map[string]float64{"sum": sum})
+	/*
+		Consideration: If a transaction ID doesn’t exist, the function currently just continues without processing it.
+		Depending on your business logic, you might want to return an error if the initial transaction ID doesn’t exist, like 404 Not Found.
+		currently we are returning sum = 0, which is not appropriate.
+	*/
 
 }
